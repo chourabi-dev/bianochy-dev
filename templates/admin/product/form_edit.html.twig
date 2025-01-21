@@ -1,0 +1,32 @@
+{# templates/admin/product/form_edit.html.twig #}
+{% extends '@EasyAdmin/crud/edit.html.twig' %}
+
+
+{% block content %}
+<div> 
+    <div class="row mt-2 mb-1">
+        {% for item in _context.entity.instance.images %}
+        <div class="col-12 mb-2 col-sm-6 col-md-4">
+                <img src="/uploads/products/{{item.path}}" class="w-100 rounded" alt="">
+            </div>
+        {% endfor %}
+    </div>
+
+    {{ parent() }}
+</div>
+
+
+
+
+{% endblock %}
+
+{% block javascripts %}
+
+
+    {{ parent() }}
+    <script type="text/javascript">
+        // Your custom JavaScript here
+        console.log('Custom script loaded');
+        // Add other JavaScript logic here
+    </script>
+{% endblock %}

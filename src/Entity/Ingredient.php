@@ -16,6 +16,9 @@ class Ingredient
     #[ORM\Column(length: 255)]
     private ?string $label = null;
 
+    #[ORM\ManyToOne(inversedBy: 'ingredient')]
+    private ?Product $product = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -37,4 +40,17 @@ class Ingredient
     {
         return $this->label;
     }
+
+    public function getProduct(): ?Product
+    {
+        return $this->product;
+    }
+
+    public function setProduct(?Product $product): static
+    {
+        $this->product = $product;
+
+        return $this;
+    }
+ 
 }

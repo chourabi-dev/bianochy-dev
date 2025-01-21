@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\ProductRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -43,6 +45,27 @@ class Product
 
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $delivery = null;
+
+    /**
+     * @var Collection<int, ProductImage>
+     */
+    #[ORM\OneToMany(mappedBy: 'product', targetEntity: ProductImage::class, cascade: ['persist'])]
+    private Collection $images;
+
+    /**
+     * @var Collection<int, Ingredient>
+     */
+    #[ORM\OneToMany(targetEntity: Ingredient::class, mappedBy: 'product')]
+    private Collection $ingredient;
+ 
+
+    public function __construct()
+    {
+        $this->images = new ArrayCollection();
+        $this->ingredient = new ArrayCollection();
+    }
+
+    
 
 
     public function getId(): ?int
@@ -108,13 +131,7 @@ class Product
         $this->createdAt = $createdAt;
 
         return $this;
-    }
-
-
-    function __toString()
-    {
-        return $this->label;
-    }
+    } 
 
     public function isEnStock(): ?bool
     {
@@ -175,5 +192,74 @@ class Product
 
         return $this;
     }
+
+    /**
+     * @return Collection<int, ProductImage>
+     */
+    public function getImages(): Collection
+    {
+        return $this->images;
+    }
+
+    public function addImage(ProductImage $image): static
+    {
+        if (!$this->images->contains($image)) {
+            $this->images->add($image);
+            $image->setProduct($this);
+        }
+
+        return $this;
+    }
+
+    public function removeImage(ProductImage $image): static
+    {
+        if ($this->images->removeElement($image)) {
+            // set the owning side to null (unless already changed)
+            if ($image->getProduct() === $this) {
+                $image->setProduct(null);
+            }
+        }
+
+        return $this;
+    }
+
+
+
+    function __toString()
+    {
+        return $this->label;
+    }
+
+    /**
+     * @return Collection<int, Ingredient>
+     */
+    public function getIngredient(): Collection
+    {
+        return $this->ingredient;
+    }
+
+    public function addIngredient(Ingredient $ingredient): static
+    {
+        if (!$this->ingredient->contains($ingredient)) {
+            $this->ingredient->add($ingredient);
+            $ingredient->setProduct($this);
+        }
+
+        return $this;
+    }
+
+    public function removeIngredient(Ingredient $ingredient): static
+    {
+        if ($this->ingredient->removeElement($ingredient)) {
+            // set the owning side to null (unless already changed)
+            if ($ingredient->getProduct() === $this) {
+                $ingredient->setProduct(null);
+            }
+        }
+
+        return $this;
+    }
+
+
  
 }
