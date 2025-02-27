@@ -42,13 +42,17 @@ class ProductCrudController extends AbstractCrudController
         return [
             IdField::new('id')->hideOnForm()->setLabel('N°'),
             
-            TextField::new('label')->setColumns(12)->setLabel("Titre"),
-            TextField::new('subtitle')->setColumns(12)->setLabel("Sous-titre"), 
-            AssociationField::new('category')->setColumns(12)->setLabel("Catégorie")->setFormTypeOption('choice_label', 'label'), 
+            TextField::new('label')->setColumns(12)->setLabel("product.title"),
+            TextField::new('subtitle')->setColumns(12)->setLabel("product.sub_title"), 
+            AssociationField::new('category')->setColumns(6)->setLabel("product.category")->setFormTypeOption('choice_label', 'label'), 
+            AssociationField::new('subCategory')->setColumns(6)->setLabel("product.sub_category"), 
+            
 
+            AssociationField::new('perfum')->setColumns(6)->setLabel("product.perfum"), 
+            
 
-            MoneyField::new('price')->setColumns(12)->setLabel("Prix")->setCurrency('TND'),
-            BooleanField::new('enStock')->setColumns(12)->setLabel("En stock"),
+            TextField::new('price')->setColumns(12)->setLabel("product.price"),
+            BooleanField::new('enStock')->setColumns(12)->setLabel("product.in_stock"),
 
 
             CollectionField::new('images')
@@ -58,30 +62,26 @@ class ProductCrudController extends AbstractCrudController
             ])
             ->onlyOnForms()
             ->setColumns(12)
-            ->setLabel("Images"),
+            ->setLabel("product.images"),
 
 
             AssociationField::new('ingredient')->setColumns(12)
             ->setFormTypeOptions([
                 'by_reference' => false,  // Ensure that the association is properly updated
             ])
-            ->setLabel('Ingredients')
+            ->setLabel('product.ingredients')
             ->onlyOnForms()  // Only display in form view
             ->setHelp('Sélectionnez les ingrédients pour ce produit'),
             
     
-            TextEditorField::new('descreption')->setColumns(12)->setLabel("Description")->hideOnIndex(),
-            TextEditorField::new('features')->setColumns(12)->setLabel("Caracteristiques")->hideOnIndex(),
-            TextEditorField::new('howToUse')->setColumns(12)->setLabel("Nos conseils d'application")->hideOnIndex(),
-            TextEditorField::new('delivery')->setColumns(12)->setLabel("Livraison")->hideOnIndex(),
+            TextEditorField::new('descreption')->setColumns(12)->setLabel("product.description")->hideOnIndex(),
+            TextEditorField::new('features')->setColumns(12)->setLabel("product.caracteristiques")->hideOnIndex(),
+            TextEditorField::new('howToUse')->setColumns(12)->setLabel("product.how_to_use")->hideOnIndex(),
+            TextEditorField::new('delivery')->setColumns(12)->setLabel("product.delivery")->hideOnIndex(),
             
-             
+              
             
-            
-            
-            // category many to one entity feild
-            
-            DateTimeField::new('createdAt')->setLabel("Date d'ajout")->hideOnForm()
+            DateTimeField::new('createdAt')->setLabel("product.createdAt")->hideOnForm()
         ];
     }
 
@@ -97,6 +97,7 @@ class ProductCrudController extends AbstractCrudController
         
         if ($entityInstance instanceof Product) {
             if ($entityInstance->getCreatedAt() === null) {
+                $entityInstance->setEnStock(true);
                 $entityInstance->setCreatedAt(new \DateTime());
             }
 

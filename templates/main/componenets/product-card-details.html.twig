@@ -1,0 +1,82 @@
+{% set promotion = null %} 
+{% set today = "now"|date("Y-m-d") %} 
+
+<!-- item.category.promotions is an array get the last element -->
+{% if item.category != null %}
+    {% set promotion = item.category.promotions | last %}
+{% endif %}
+
+<!-- but if product sub category have a promotion we take it insted -->
+{% if item.subCategory != null %}
+    {% set promotion = item.subCategory.promotions | last %}
+{% endif %}
+
+
+<a href="{{ path('product_details_route',{id:item.id}) }}">
+                        <div class="product-card">
+                            {% if promotion != null %}
+                                {% if promotion.startAt|date("Y-m-d") <= today and today <= promotion.endAt|date("Y-m-d") %}
+                                    <div class="promo-badge">PROMO</div>
+                                {% endif %}
+                                
+                            {% endif %}
+                            <div class="images-show">
+                                    
+                                <!-- create a for loop and stops on the second index -->
+                                 {% for image in item.images|slice(0, 2) %}
+                                    <div class="image-bloc" style="z-index: {{loop.index}};">
+                                        <img src="/uploads/products/{{ image.path }}" alt="product image" width="100%">
+                                    </div>
+                                 {% endfor %}
+    
+                            </div>
+                            <div class="content">
+                               <div class="starts-review-bloc d-flex">
+                                    <div class="stars-reviews">★★★★★</div> 
+                                    <div class="text">
+                                        {{ item.productReviews | length }} avis
+                                    </div>
+                                    
+                               </div>
+                               
+                               {% if promotion != null %}
+                                    <!-- if today between promotion.startAt end promotion.endAt  -->
+                                    
+                                    
+
+                                    {% if promotion.startAt|date("Y-m-d") <= today and today <= promotion.endAt|date("Y-m-d") %}
+                                        <!-- show old barred price  and new price -->
+                                        <p class="text-danger" style="text-decoration: line-through;">
+                                            {{ item.price }} TND
+                                        </p>
+
+                                        {% set new_price = 0 %}
+
+                                        {% set new_price = item.price -  (   ( item.price * promotion.value ) / 100  ) %}
+
+                                        <div class="product-card-price">
+                                            <span class="price">{{ new_price | format_currency('TND', {fraction_digit: 2}) }}</span>
+                                        </div>
+                                        
+                                        {% else %}
+                                        <div class="product-card-price">
+                                            <span class="price">{{ item.price | format_currency('TND', {fraction_digit: 2}) }}</span>
+                                        </div>
+                                        
+                                    {% endif %}
+
+
+                                    {% else %}
+                                    <div class="product-card-price">
+                                        <span class="price">{{ item.price | format_currency('TND', {fraction_digit: 2}) }}</span>
+                                    </div>
+                               {% endif %}
+
+                                <div class="product-label">
+                                    <span class="label">{{ item.label }}</span>
+                                </div>
+    
+                            </div>
+                        </div>
+                     </a>
+                    

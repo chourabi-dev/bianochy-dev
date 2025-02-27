@@ -1,0 +1,240 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{% endblock %}
+
+
+
+{% block top_page_message_block %}{% endblock %}
+{% block navbar %}{% endblock %}
+{% block body %}
+ 
+
+
+<div class="container-fluid">
+      <div class="py-5 text-center">
+        <img class="d-block mx-auto mb-4" src="/logo.png" alt="" width="250" >
+        <h2>confirmer la commande</h2>
+        <p class="lead">
+        Avant de finaliser votre commande, veuillez vérifier attentivement vos informations personnelles et les détails de votre achat.
+        </p>
+      </div>
+
+      <div class="row">
+        <div class="col-md-6 order-md-2 mb-4 right-side-checkout">
+          <h4 class="d-flex justify-content-between align-items-center mb-3">
+            <span class="text-muted">Panier</span>
+            <span class="badge badge-secondary badge-pill"></span>
+          </h4>
+          <ul class="list-group mb-3" id="data">
+           
+            
+            <div>
+                <p class="text-center text-muted">
+                    Chargement en cours ...
+                </p>
+            </div>
+          
+           
+          </ul>
+
+         
+          <div class=" ">
+            <div class="total-price">Total: <span id="cart-total">0</span> TND</div>
+            
+          </div>
+
+         
+        </div>
+        <div class="col-md-6 order-md-1">
+          
+          
+          <form class="container needs-validation" id="money-form" method="post" >
+            <input type="hidden" id="products" name="products" value="">
+            <input type="hidden" id="packs" name="packs" value="">
+            
+
+            <h4 class="mb-3">Informations</h4>
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label for="firstName">Nom</label>
+                    <input type="text" class="form-control" id="firstName" name="lastname" placeholder="" value=""
+                    required>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label for="lastName">Prenom</label>
+                    <input type="text" class="form-control" id="lastName" name="firstname" placeholder="" value=""
+                    required>
+                </div>
+            </div>
+            <div class="mb-3">
+                <label for="email">Email</label>
+                <div class="input-group">
+
+                    <input type="email" class="form-control" id="email" name="email" placeholder="you@exampl.com" required /> 
+
+
+
+                </div>
+            </div>
+            <div class="mb-3">
+                <label for="email">Télephone</label>
+                <div class="input-group">
+
+                    <input type="tel" class="form-control" id="email" name="phone" placeholder="you@exampl.com" required minlength="8" /> 
+
+
+
+                </div>
+            </div>
+            <div class="mb-3">
+                <label for="address">Adresse</label>
+                <div class="input-group">
+
+                    <input type="text" class="form-control" id="address" name="address" placeholder="Exmpl: tunis, rue expml" required minlength="8" /> 
+
+
+
+                </div>
+            </div>
+
+
+            <p class="text-muted mt-3">
+                Avant de valider votre commande, veuillez vérifier les informations ci-dessus. Une fois la commande confirmée, aucune modification ne sera possible.
+              </p>
+              
+            <div class="mb-3">
+                <button type="submit" id="submit-btn" class="btn btn-theme w-100">ENVOYER LA COMMANDE</button>
+            </div>
+            
+        
+        </form>
+
+          
+        </div>
+      </div>
+
+ 
+    </div>
+
+
+{% endblock %}
+
+
+{% block javascripts %}
+    {{ parent() }}
+    <script >
+        $(document).ready(function(){
+            //<input type="hidden" id="" name="products" value="">
+            //<input type="hidden" id="" name="packs" value="">
+            
+            const cartKey = "shoppingCart";
+            const packCartKey = "packCart";
+
+
+            $("#products").val(localStorage.getItem(cartKey))
+            $("#packs").val(localStorage.getItem(packCartKey))
+
+            
+
+            async function fetchProductDetails(productId) {
+      const response = await fetch(`/api/details/product/${productId}`);
+      return response.json();
+    }
+    
+    // Fetch pack details from API
+    async function fetchPackDetails(packId) {
+      const response = await fetch(`/api/details/pack/${packId}`);
+      return response.json();
+    }
+
+
+            async function displayCartItems() {
+      const products = JSON.parse(localStorage.getItem(cartKey)) || [];
+      const packs = JSON.parse(localStorage.getItem(packCartKey)) || [];
+      let cartHTML = '';
+      let totalPrice = 0;
+    
+      // Display products
+      for (let product of products) {
+        const productData = await fetchProductDetails(product.id);
+        const { title, imageUrl, price, quantity } = productData;
+    
+        totalPrice += price * product.quantity;
+    
+        cartHTML += `
+          <div class="cart-item product-item" data-product-id="${product.id}">
+            <img src="${imageUrl}" alt="${title}" class="checkout-prod-image" />
+            <div class="w-100">
+              <h4>${title}</h4>
+              <p class="badge bg-dark">Product</p> 
+             
+            </div>
+            <div>
+                <span class="bg-dark badge rounded-pill text-white">${product.quantity}</span>
+            </div>
+             
+           
+          </div>
+        `;
+      }
+    
+      // Display packs
+      for (let pack of packs) {
+        const packData = await fetchPackDetails(pack.id);
+        const { title, imageUrl, price } = packData;
+    
+        totalPrice += price * pack.quantity;
+    
+        cartHTML += `
+          <div class="cart-item pack-item" data-pack-id="${pack.id}">
+            <img src="${imageUrl}" alt="${title}" class="checkout-prod-image" />
+            <div class="w-100">
+              <h4>${title}</h4>
+              <p class="badge bg-dark">Pack</p>
+              
+              
+            </div>
+            <div>
+                <span class="bg-dark badge rounded-pill text-white">${pack.quantity}</span>
+            </div>
+             
+          </div>
+        `;
+      }
+    
+      $("#data").html(cartHTML);
+      $("#cart-total").text(totalPrice.toFixed(2));
+    
+  
+    }
+
+
+            /*
+             <li class="list-group-item d-flex justify-content-between lh-condensed">
+              <div>
+                <h6 class="my-0">Product name</h6>
+                <small class="text-muted">Brief description</small>
+              </div>
+              <span class="text-muted">$12</span>
+            </li>
+
+
+             <li class="list-group-item d-flex justify-content-between">
+              <span>Total (USD)</span>
+              <strong>$20</strong>
+            </li>
+            */
+ 
+
+
+            displayCartItems();
+
+
+
+            $("#money-form").on('submit',function(){
+                localStorage.clear();
+                $("#submit-btn").attr('disabled','disabled');
+            })
+        })
+    </script>
+{% endblock %}

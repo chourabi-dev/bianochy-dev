@@ -1,0 +1,1213 @@
+/* For the entire document */
+body {
+    scrollbar-width: thin; /* For Firefox */
+    scrollbar-color: #00000080 #f1f1f1; /* For Firefox */
+    margin: 0 !important;
+    background: #eeeae8;
+}
+a{
+    text-decoration: none;
+}
+
+/* For Webkit browsers (Chrome, Edge, Safari) */
+::-webkit-scrollbar {
+    width: 10px; /* Width of the scrollbar */
+    height: 10px; /* Height for horizontal scrollbar */
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f1f1; /* Light background for the track */
+    border-radius: 10px; /* Rounded corners */
+}
+
+::-webkit-scrollbar-thumb {
+    background: linear-gradient(180deg, #00000080, #00000080); /* Gradient scrollbar thumb */
+    border-radius: 10px; /* Rounded thumb corners */
+    border: 2px solid #f1f1f1; /* Adds spacing around the thumb */
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(180deg, #00000080, #00000080); /* Darker gradient on hover */
+}
+
+/* Optional: Styling for horizontal scrollbar */
+::-webkit-scrollbar-track:horizontal {
+    background: #eaeaea; /* Different track color for horizontal scrolling */
+}
+
+
+
+.top-message-block{
+    background: #9d8d80;
+    color: #ffffff;
+    text-align: center;
+    padding: 16px 0;
+    font-size: 16px;
+    font-family: "Unna", serif;
+    font-weight: 400;
+    line-height: 20px; 
+    padding-left: 24px;
+    padding-right: 24px;
+}
+
+.app-navbar{
+    background-color: #eeeae8;
+    padding: 13px 24px 0px 24px;
+    position: relative;
+    height: 53px;
+}
+
+#mobile-navbar{
+    background-color: #eeeae8 !important;
+}
+
+#mobile-navbar a{
+    color: #32261e !important; 
+}
+
+.menu-item{
+    font-family: "Unna", serif;
+    padding: 12px 20px;
+    font-size: 15px;
+    font-weight: 400;
+    line-height: 20px;
+    
+}
+
+
+.menu-item > a{ 
+    color: #32261e;
+}
+
+
+.nav-search-bloc{
+    display: flex;
+    padding: 6px 20px;
+}
+
+.nav-search-bloc > .icon > i {
+    font-size: 30px;
+    color: #32261e;
+}
+
+
+.nav-search-bloc > .text { 
+    font-family: "Unna", serif;
+    color: #32261e;
+    font-size: 15px;
+    padding-top: 6px;
+
+}
+
+
+.nav-profile-icon{
+    padding: 12px 5px;
+}
+
+.nav-shopping-cart{
+   padding: 7px 5px;
+}
+
+.nav-profile-icon > i{
+    color: #a18c80;
+    font-size: 25px;
+}
+
+.nav-shopping-cart > i{
+    color: #32261e;
+    font-size: 25px;
+}
+
+
+
+
+.menu-item {
+   
+    padding: 10px 20px;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.menu-item:hover {
+    color: #32261e;
+}
+
+/* Dropdown styles */
+.nav-dropdown-menu .dropdown-content {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: white;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    z-index: 10;
+    width: 200px;
+}
+
+.nav-dropdown-menu:hover .dropdown-content {
+    display: block;
+}
+
+ 
+/* Arrow styles */
+.dropdown-arrow {
+    margin-left: 5px;
+    transition: transform 0.3s ease;
+}
+
+.nav-dropdown-menu:hover .dropdown-arrow {
+    transform: rotate(180deg);
+}
+
+/* Hover effects */
+.menu-item:hover .dropdown-arrow {
+    color: #32261e;
+}
+
+
+
+.nav-dropdown-menu:hover .dropdown-content {
+    padding: 30px;
+    display: flex;
+    width: 100vw;
+    height: 80vh;
+    left: 0;
+    background: linear-gradient(180deg, #eeeae8 20%, #eeeae89e 80%, #eeeae800 100%); 
+  
+}
+
+
+.block-category{
+    width: 200px;
+}
+
+.category-dropdown-title{
+    font-family: "Unna", serif;
+    color: #32261e;
+    font-size: 15px;
+    font-weight: 400;
+}
+
+.dropdown-category-link{
+    font-family: "Unna", serif;
+    color: #32261e;
+    font-size: 14px;
+    font-weight: 300;
+    text-decoration: none;
+}
+.category-icon{
+    width: 24px;
+    margin-right: 1px;
+}
+
+.block-category-item{
+    margin-bottom: 15px;
+}
+
+
+.page-title{
+    font-size: 64px;
+    font-family: "Prata", serif;
+    font-weight: 400;
+    color: #32261e;
+    padding: 20px 0px;
+  
+}
+
+
+.product-card {
+    transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
+    margin-bottom: 30px;
+}
+
+.product-card:hover {
+    transform: scale(1.1);
+}
+
+
+ 
+
+/* Container for images */
+.images-show {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+/* Individual image blocks */
+.image-bloc {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
+    opacity: 0;
+    transform: scale(1.1); /* Slightly zoomed in for animation effect */
+}
+
+/* Default styles for the image */
+.image-bloc img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Display the first image by default */
+.image-bloc:first-child {
+    opacity: 1;
+    transform: scale(1); /* Reset scale */
+    z-index: 1;
+}
+
+/* On hover, animate the higher z-index image */
+.product-card:hover .image-bloc:nth-child(2) {
+    opacity: 1;
+    transform: scale(1); /* Reset scale */
+    z-index: 2; /* Bring it to the front */
+}
+
+/* Ensure the first image fades out smoothly */
+.product-card:hover .image-bloc:first-child {
+    opacity: 0;
+    transform: scale(1.1); /* Slightly zoomed in */
+}
+
+
+.images-show{
+    position: relative;
+}
+
+
+.images-show{
+    position: relative;
+    height: 216px;
+}
+.images-show > .image-bloc{
+    position: absolute;left: 0;top: 0;
+}
+
+.product-card > .content{
+    padding: 15px;
+    background-color: white;
+    border-radius: 0px 0px 10px 10px;
+}
+
+.product-card-price{
+    font-size: 28px;
+    font-family: "Prata", serif;
+    font-weight: 400;
+    color: #32261e;
+}
+
+.product-label{
+    font-size: 20px;
+    font-family: "Unna", serif;
+    font-weight: 300;
+    color: #32261e;
+}
+
+.stars-reviews{
+    color: #83d3b2;
+}
+
+.starts-review-bloc > .text{
+    font-size: 10px;
+    font-weight: 300;
+    color: #32261e;
+    padding-top: 8px;
+
+}
+
+
+.breadcrumb-bloc{
+    background-color: white;
+    width: fit-content;
+    padding: 9px 12px;
+    border-radius: 4px;
+    margin-bottom: 0; 
+}
+
+
+.breadcrumb-bloc ol{ 
+    margin-bottom: 0;
+}
+
+
+.breadcrumb.custom-breadcrumb li {
+    display: inline-block;
+    position: relative;
+    padding-right: 10px; /* Adjust for consistent space */
+    margin-right: 15px;
+    color: #32261e;
+  }
+
+
+  
+.breadcrumb.custom-breadcrumb li a { 
+    color: #32261e;
+    font-size: 14px;
+    font-family: "Unna", serif;
+    font-weight: 400;
+
+  }
+  
+  .breadcrumb.custom-breadcrumb li::after {
+    content: '>';
+    position: absolute;
+    right: -12px;
+    color: #32261e;
+    /* margin-left: 27px; */
+    font-size: 24px;
+    top: -9px;
+  }
+  
+  .breadcrumb.custom-breadcrumb li:last-child::after {
+    content: ''; /* Remove the icon for the last breadcrumb */
+  }
+
+
+
+  .owl-nav{
+    position: absolute;
+    top: 50%;
+    width: 100%;
+    justify-content: space-between;
+    display: flex;
+
+  }
+
+  .owl-nav > button > span{
+    color: white;
+    font-size: 30px;
+    padding: 10px;
+  }
+
+  .product-images{
+    box-shadow: 0 1px 3px #00000050;
+    border: 3px solid #eeeae8;
+    background-color: #eeeae8;
+    border-radius: 3px;
+  }
+
+
+  .product-images .owl-dots{
+    display: none;
+  }
+
+  .product-details-label{
+    font-size: 30px;
+    font-weight: 400;
+    font-family: "Prata", serif;
+    margin-bottom: 15px;
+  }
+
+  .rating-star{
+    color: #83d3b2;
+    font-size: 16px;
+
+  }
+
+  .rating-count{
+    font-size: 12px;
+  }
+
+  .product-details-rating{
+    margin-bottom: 15px;
+  }
+
+  .product-details-ingredients{
+    margin-bottom: 15px;
+  }
+
+  .fragrance-list {
+    display: block !important;
+    gap: 0.5rem; /* Adjust spacing between items */
+  }
+  
+  .fragrance-list span::after {
+    content: ".";
+    font-size: 42px; 
+    color: #32261e; 
+    line-height: 0px;
+  }
+
+  .fragrance-list span { 
+    color: #32261e;  
+    font-family: "Unna", serif    ;
+    font-size: 16px;
+    font-weight: 400;
+  }
+  
+  .fragrance-list span:last-child::after {
+    content: ""; /* Remove dot for the last item */
+  }
+
+
+  .product-details-price{
+    margin-bottom: 15px;
+  }
+
+
+.price-box > .price{
+    font-family: "Prata", serif;
+    font-size: 32px;
+    font-weight: 400;
+    color: #32261e;  
+}
+ 
+
+.product-details-subtitle{
+    margin-bottom: 15px;
+}
+
+.product-action-button{
+    background-color: rgb(131, 211, 178);
+    color: white;
+    font-size: 23px;
+    font-family: "Unna", serif ;
+    font-weight: 700;
+    display: block;
+    width: 100%;
+    padding: 20px 0px;
+    text-align: center;
+    border-radius: 7px;
+
+}
+
+
+.custom_accordion-item{
+    background-color: transparent;
+    border: 0;
+    border-bottom: 1px solid;
+    border-radius: 0 !important;
+}
+
+.accordion-button{
+    padding-left: 0;
+    font-size: 18px;
+    color: #32261e;
+    font-weight: 400;
+    font-family: "Unna", serif ;
+    text-transform: uppercase;
+
+}
+
+.accordion-button.collapsed{
+    background-color: transparent !important;
+}
+
+.theme-text-color{
+    color: #32261e;
+}
+
+.accordion-button:not(.collapsed) {
+   background-color: transparent;
+   outline: none;
+}
+
+.accordion-button {
+    box-shadow: none !important;
+ }
+
+
+
+ #product-details-secondary { 
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(20px);
+    transition: all 0.4s ease-in-out; 
+    height: fit-content;
+  }
+  
+  #product-details-secondary.visible {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+  }
+  
+
+  .secondary-bloc-details-content{
+    background-color: white;
+    padding: 15px;
+    border-radius: 7px;
+  }
+
+  #product-details-main{
+    height: fit-content;
+  }
+
+
+
+  @media screen and (max-width: 766px) {
+    .secondary-bloc-details-content{
+        display: none;
+    }
+  }
+
+
+  .title-reviews-bloc{
+    font-size: 24px;
+    font-family: "Prata", serif;
+    font-weight: 400;
+    color: #32261e;
+  }
+
+  .reviews-sections{
+    background-color: white;
+    box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.1);
+    padding: 24px 16px;
+    border-radius: 4px;
+  }
+
+
+  .btn-theme{
+    background-color: rgb(131, 211, 178);
+    color: white;
+    display: block;
+  }
+
+  .theme-color{
+    color: rgb(131, 211, 178);
+  }
+
+
+  .avatar-bloc{
+    height: 30px;
+    width: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 7px;
+    color: #83d3b2;
+    background-color: rgb(239 239 239);
+    margin-right: 10px;
+  }
+
+  .review-fullanme{
+    font-size: 16px;
+    font-weight: 400;
+    font-family: "Unna", serif;
+    text-transform: capitalize;
+  }
+
+  .review-card{
+    background-color: white;
+    box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.1);
+    
+    border-radius: 4px;
+    border: 0;
+  }
+
+
+
+  .feature-products-section{
+    background: linear-gradient(180deg, rgba(120, 103, 94, 1), rgba(165, 150, 141, 1) 50%, rgba(238, 234, 232, 1) 100%);
+    padding: 70px 15px;
+  }
+
+
+  .product-feature{
+    text-align: center;
+  }
+
+  .product-feature .icon{
+    color: white;
+    font-size: 55px;
+  }
+
+  .product-feature .title{
+    font-size: 21px;
+    font-weight: 400;
+    font-family: "Prata", serif;
+    color: white;
+
+  }
+  .product-feature .content{
+    font-size: 11px;
+    font-weight: 300;
+    font-family: "Unna", serif;
+    color: white;
+    
+  }
+  
+
+  .news-letter-form-input{
+    background-color: transparent !important;
+    border: 1px solid rgba(17, 17, 17, .9) !important;
+  }
+
+
+  .news-letter-section{
+    padding: 63px 15px;
+  }
+
+  .news-letter-section .title{
+    color: rgb(50, 38, 30);
+    font-family: Prata, serif    ;
+    font-size: 28.8px;
+    font-weight: 400;
+  }
+
+
+  .news-letter-section .descreption{
+    color: rgb(50, 38, 30);
+    font-family: Unna, serif    ;
+    font-size: 12px;
+    font-weight: 300;
+  }
+
+
+  footer{
+    padding: 55px 24px;
+    display: flex;
+    justify-content: space-between;
+    background-color: #a9958d;
+  }
+
+
+  footer a {
+    text-transform: uppercase;
+    text-decoration: none;
+    font-family:"Unna", serif    ;
+    font-weight: 300;
+    font-size: 13px;
+    color: rgb(50, 38, 30); 
+}
+
+
+footer ul {
+    padding: 0;
+    list-style: none;
+}
+
+footer li {
+    padding-bottom: 20px;
+}
+
+.follow-us{
+    text-align: right;
+}
+
+.follow-us .title {
+    font-family: Prata, serif    ;
+    font-size: 22px;
+    font-weight: 400;
+    color: #32261e;
+}
+
+.follow-us .descreption {
+    font-family: Unna, serif    ;
+    font-size: 15px;
+    font-weight: 300;
+    color: #32261e;
+}
+
+
+.follow-us .social-media-item > a > i{
+    font-size: 46px;
+    color: #32261e;
+}
+
+.follow-us .social-media-item{
+    margin-right: 15px;
+    margin-top: 20px;
+}
+
+
+
+.cart-panel {
+    position: fixed;
+    top: 0;
+    left: -110%;
+    width: 550px;
+    height: 100%;
+    background: white;
+    box-shadow: 3px 0 10px rgba(0, 0, 0, 0.3);
+    overflow-y: auto;
+    transition: all 0.3s ease;
+    z-index: 1000;
+  }
+  .cart-panel.visible {
+    left: 0;
+  }
+  .cart-header {
+    display: flex;
+    justify-content: space-between;
+    padding: 1rem;
+    background: #a18c80;
+    color: white;
+    font-family: "Unna", serif;
+  }
+  .cart-items {
+    padding: 1rem;
+  }
+  .cart-item {
+    font-family: "Unna", serif;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem 0;
+    border-bottom: 1px solid #ddd;
+  }
+  .cart-item img {
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+  }
+  .cart-footer {
+    padding: 1rem;
+    background: #f9f9f9;
+  }
+  .total-price {
+    font-size: 1.2rem;
+    font-weight: bold;
+  }
+  
+  .cart-item img{
+    margin-right: 15px;
+  }
+
+
+
+
+  @media screen and (max-width: 715px) {
+    #web-navbar{
+        display: none !important;
+    }
+    #mobile-navbar{
+        display: block !important;
+    }
+
+    .cart-panel{
+        width: 100% !important;
+    }
+    
+  }
+
+
+
+
+  .contact-us-bloc{
+    padding: 42px;
+    background-color: white;
+    border-radius: 10px;
+
+  }
+
+  .contact-us-bloc > .title{
+    font-family: Prata, serif;
+    font-size: 34px;
+    font-weight: 400;
+  }
+
+  .contact-us-bloc > .sub-title{
+    color: #78675e;
+    font-size: 18px;
+    font-weight: 400;
+    font-family: "Unna", serif;
+  }
+
+  .contact-us-control{
+    border: 1px solid #32261e;
+    background-color: transparent;
+    color: #32261e;
+    max-width: 100%;
+    line-height: 1.2;
+    border-radius: 5px;
+    transition: all 0.3s ease;
+    min-height: 44px;
+    width: 100%;
+    padding: 5px 10px;
+  }
+
+
+
+  .info-contact-icon{
+    color: #32261e;
+    font-size: 40px;
+    margin-right: 25px;
+    line-height: 1px;
+  }
+
+  .info-contact-text{
+    color: #32261e;
+    font-family: Unna, serif    ;
+    font-size: 16px;
+    font-weight: 300;
+    padding-top: 7px;
+
+  }
+
+
+  .checkout-prod-image{
+    height: 80px !important;
+    width: 80px !important;
+    background-color: white;
+    padding: 5px;
+    border-radius: 7px;
+     
+  }
+
+
+  .right-side-checkout{
+    background-color: #a9958d; 
+    color: white;
+    padding: 30px;
+  }
+
+ 
+
+.note-olfactives{
+  background-color: white;
+  width: 100%;
+  text-align: center;
+  padding: 30px 22px;
+  border-radius: 12px;
+  position: relative;
+  padding-top: 77px;
+  margin-top: 120px;
+  margin-bottom: 15px; 
+
+}
+
+
+.note-olfactives > .image-bloc{
+  height: 180px;
+  width: 180px;
+  background-position: center;
+  background-size: cover;
+  position: absolute;
+  top: -115px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.note-olfactives > .label{
+  font-family: "Prata", serif;
+  font-size: 24px;
+  font-weight: 400; 
+  color: #32261e;
+}
+
+
+#perfum-slider .owl-nav{
+  display: flex;
+  position: absolute;
+  top: 29%;
+  width: 100%;
+  justify-content: space-between;
+}
+
+#perfum-slider .owl-nav .owl-prev{
+  margin-left: -58px;
+  font-size: 69px;
+    color: #32261e;
+}
+
+#perfum-slider .owl-nav .owl-next{
+  margin-right: -58px;
+  font-size: 69px !important;
+  color: #32261e !important;
+}
+
+
+#perfum-slider .owl-nav .owl-prev > span{ 
+  font-size: 69px;
+    color: #32261e;
+}
+
+#perfum-slider .owl-nav .owl-next > span{ 
+  font-size: 69px !important;
+  color: #32261e !important;
+}
+
+
+
+.bloc-img-1{
+  width: 70%;
+}
+
+
+.bloc-text-1{
+    width: 40%;
+    margin-left: -10%;
+    margin-top: 20px;
+}
+
+
+
+@media screen and ( max-width: 580px ) {
+  #perfum-slider .owl-nav{
+    display: none; 
+  }
+
+  .bloc-img-1{
+    width: 100%;
+  }
+
+
+  .bloc-text-1{
+      width: 100%;
+      margin-left: auto;
+      margin-top: 15px;
+  }
+
+}
+
+
+.title-1{
+  font-family: Prata, serif  ;
+  font-size: 34px;
+  font-weight: 400;
+  color: #32261e;
+}
+
+.text-1{
+  font-family: Unna, serif  ;
+  font-size: 16px;
+  font-weight: 300;
+  color: #32261e;
+}
+
+/*
+<div class="col-6 col-sm-3">
+                        <div class="">
+                            <div class="icon">
+                                <i class="fa fa-leaf" aria-hidden="true"></i>
+                            </div>
+                            <div class="title">Parfum de Grasse</div>
+                            <div class="content">
+                                Les fragrances sont soigneusement sélectionnées par des parfumeurs de Grasse, capitale mondiale du parfum.</div>
+                        </div>
+                    </div>*/
+
+
+.feature-bloc{
+  text-align: center;
+
+}
+
+.feature-bloc > .icon > i{ 
+  font-size: 35px;
+  color: #32261e; 
+  margin-bottom: 15px;
+
+}
+.feature-bloc > .title{
+  font-family: Prata, serif ;
+  font-size: 21px;
+  color: #32261e;
+  font-weight: 400;
+
+}
+
+.feature-bloc > .content{
+  font-family: Unna, serif ;
+  font-size: 15px;
+  color: #32261e;
+  font-weight: 300;
+
+}
+
+
+
+.testimonials {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  padding: 1rem;
+}
+
+.testimonial {
+  background: white;
+  border-radius: 1rem;
+  padding: 2rem;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  position: relative;
+}
+
+.testimonial:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+}
+
+.quote {
+  position: absolute;
+  top: -1rem;
+  left: -1rem;
+  width: 2rem;
+  height: 2rem;
+  background: #6366f1;
+  opacity: 0.1;
+  border-radius: 50%;
+}
+
+.quote::before {
+  content: '"';
+  position: absolute;
+  color: #1a1a1a;
+  font-size: 2rem;
+  font-weight: bold;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.content {
+  color: #4a4a4a;
+  font-size: 1rem;
+  line-height: 1.6;
+  margin-bottom: 1.5rem;
+}
+
+.author {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.author img {
+  width: 3rem;
+  height: 3rem;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.author-info h4 {
+  color: #1a1a1a;
+  font-size: 1rem;
+  margin-bottom: 0.25rem;
+}
+
+.author-info p {
+  color: #666;
+  font-size: 0.875rem;
+}
+
+.stars {
+  margin-top: 1rem;
+  color: #fbbf24;
+}
+
+.stars::before {
+  content: "★★★★★";
+  letter-spacing: 2px;
+}
+
+@media (max-width: 768px) {
+  .header h1 {
+      font-size: 2rem;
+  }
+
+  .testimonials {
+      grid-template-columns: 1fr;
+  }
+}
+
+
+.product-card{
+  position: relative;
+}
+
+.promo-badge{
+  position: absolute;
+  top: 0px;
+  z-index: 1000000000000000000000000;
+  background-color: #353535;
+  right: 0;
+  display: block;
+  /* height: 100px; */
+  width: 100px;
+  text-align: center;
+  color: white;
+  border-radius: 0px 0px 0px 12px;
+  font-weight: bold;
+}
+
+.amazing-title{
+  margin-bottom: 25px;
+  font-family: Prata, serif  ; 
+  font-weight: 400;
+  color: #32261e;
+}
+
+
+
+.slider-banner{
+  width: 100%;
+  min-height: 80vh;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  align-items: end;
+  padding-bottom: 30px;
+  padding-top: 30px;
+  
+}
+
+
+
+.slider-banner .title h1 {
+  font-size: 3rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+  animation: fadeInDown 1s ease-in-out;
+}
+
+.slider-banner .title div {
+  font-size: 1.2rem;
+  line-height: 1.5;
+  opacity: 0.9;
+}
+
+.slider-banner .title a {
+  display: inline-block;
+  margin-top: 15px;
+  padding: 12px 25px;
+  background: #ff5722;
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+  text-transform: uppercase;
+  border-radius: 5px;
+  transition: all 0.3s ease-in-out;
+}
+
+.slider-banner .title a:hover {
+  background: #e64a19;
+  transform: scale(1.05);
+}
+
+/* Keyframe animations */
+@keyframes fadeInDown {
+  from {
+      opacity: 0;
+      transform: translateY(-50px);
+  }
+  to {
+      opacity: 1;
+      transform: translateY(0);
+  }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .slider-banner {
+      height: 100vh;
+  }
+  .title h1 {
+      font-size: 2rem;
+  }
+  .title div {
+      font-size: 1rem;
+  }
+  .title a {
+      padding: 10px 20px;
+      font-size: 0.9rem;
+  }
+}

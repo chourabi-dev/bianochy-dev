@@ -1,0 +1,121 @@
+{% set promotion = null %} 
+
+<!-- item.category.promotions is an array get the last element -->
+{% if product.category != null %}
+    {% set promotion = product.category.promotions | last %}
+{% endif %}
+
+<!-- but if product sub category have a promotion we take it insted -->
+{% if product.subCategory != null %}
+    {% set promotion = product.subCategory.promotions | last %}
+{% endif %}
+
+
+
+                    
+                    <div class="product-details-label">
+                        {{ product.label }}
+                    </div>
+                    <div class="product-details-subtitle">
+                        {{ product.subtitle }}
+                    </div>
+                    <div class="product-details-rating">
+                        <div class="d-flex">
+                            <div class="d-flex">
+                                <i class="rating-star fa fa-star"></i>
+                                <i class="rating-star fa fa-star"></i>
+                                <i class="rating-star fa fa-star"></i>
+                                <i class="rating-star fa fa-star"></i>
+                                <i class="rating-star fa fa-star"></i>
+                                
+                            </div>
+                            <div class="rating-count">
+                                {{ product.productReviews | length }} avis
+                            </div>
+                        </div>
+                    </div>
+    
+                    <div class="product-details-ingredients">
+                        
+    
+                        <div class="d-flex fragrance-list">
+                            {% for item in product.ingredient %}
+                                <span>
+                                   {{item.label}}
+                                </span>
+                            {% endfor %}
+                        </div>
+    
+
+
+                    </div>
+
+
+                    <div class="product-details-ingredients">
+                        
+    
+                        <div class="d-flex fragrance-list">
+                            {{ product.perfum }}
+                        </div>
+     
+                    </div>
+    
+    
+                    <div class="product-details-price">
+                        <div class="price-box">
+
+                         {% if promotion != null %}
+                                    <!-- if today between promotion.startAt end promotion.endAt  -->
+                                    {% set today = "now"|date("Y-m-d") %} 
+                                    
+
+                                    {% if promotion.startAt|date("Y-m-d") <= today and today <= promotion.endAt|date("Y-m-d") %}
+                                        <!-- show old barred price  and new price -->
+                                        <p class="text-danger" style="text-decoration: line-through;">
+                                            {{ product.price }} TND <span class="badge bg-dark text-white">en promotion</span>
+                                        </p>
+
+                                        {% set new_price = 0 %}
+
+                                        {% set new_price = product.price -  (   ( product.price * promotion.value ) / 100  ) %}
+
+                                      
+
+                                        <span class="price">
+                                            {{ new_price | format_currency('TND', {fraction_digit: 2}) }}
+                                        </span>
+                                        
+                                        {% else %}
+                                         <span class="price">
+                                            {{ product.price | format_currency('TND', {fraction_digit: 2}) }}
+                                        </span>
+                                                    
+                                    {% endif %}
+
+                                    {% else %}
+                                         <span class="price">
+                                            {{ product.price | format_currency('TND', {fraction_digit: 2}) }}
+                                        </span>
+                               {% endif %}
+ 
+    
+                            <!-- check for latest promo-->
+                             
+                            
+                        </div>
+                    </div>
+    
+                    {% if product.enStock == true %}
+                    
+                    <a product-id="{{ product.id }}" style="cursor: pointer;" class="add-product-cart product-action-button">
+                        AJOUTER AU PANIER
+                    </a>
+                        
+                    {% else %}
+                    <a href="#" class="product-action-button disabled"   onclick="return false;" disabled>
+                        Épuisé
+                    </a>
+                    {% endif %}
+    
+    
+  

@@ -1,0 +1,512 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    {{ product.label }}
+{% endblock %}
+
+
+
+
+
+{% block body %}
+
+    <!-- breadcrumb -->
+    <div class="container mt-5">
+        <div class="breadcrumb-bloc">
+            <ol class="breadcrumb custom-breadcrumb">
+                <li>
+                    <a href="#">
+                        <i class="fa fa-home" aria-hidden="true"></i>
+                    </a>
+                </li>
+                {% if product.subCategory %}
+                    <li>
+                        <a href="#">{{ product.subCategory.label }}</a>
+                    </li>
+                {% endif %}
+                {% if product.category != null %}
+                    <li>
+                        <a href="#">{{ product.category.label }}</a>
+                    </li>
+                {% endif %}
+                
+                <li>
+                    <a href="#">{{ product.label }}</a>
+                </li>
+                
+            </ol>
+        </div>
+    </div>
+
+
+
+    <div class="container mt-4">
+        <div class="row mb-5">
+            <div class="col-md-6" >
+                <div class="product-images carousel owl-carousel owl-theme">
+                    <!--loop throw images-->
+                    {% for image in product.images %}
+                        <div>
+                            <img src="/uploads/products/{{ image.path }}" alt="product image">
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="col-md-6" id="product-details-main">
+                {% include 'main/componenets/product-details-bloc.html.twig' %}
+                
+
+
+                
+            </div>
+        </div>
+
+
+        <div class="row">
+            <div class="col-12 col-sm-12 col-md-6">
+                <h1 class="theme-text-color">Description</h1>
+                <div style="font-family: Unna, serif;">
+                    {{ product.descreption | raw }}
+                </div>
+                
+                
+                
+  
+
+
+                <div class="accordion mt-5" id="accordionExample">
+                    <div class="accordion-item custom_accordion-item">
+                      <h2 class="accordion-header">
+                        <button class="accordion-button collapsed " type="button" data-bs-toggle="collapse" data-bs-target="#collapsex" aria-expanded="false" aria-controls="collapsex">
+                            Conseils d'utilisation
+                        </button>
+                      </h2>
+                      <div id="collapsex" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                        <div class="accordion-body ">
+                          
+                            {{ product.howToUse | raw }}
+
+                        </div>
+                      </div>
+                    </div> 
+
+                    <div class="accordion-item custom_accordion-item">
+                      <h2 class="accordion-header">
+                        <button class="accordion-button collapsed " type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+                            Caracteristiques
+                        </button>
+                      </h2>
+                      <div id="collapseOne" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                        <div class="accordion-body ">
+                          
+                            {{ product.features | raw }}
+
+
+                        </div>
+                      </div>
+                    </div> 
+                    <div class="accordion-item custom_accordion-item">
+                      <h2 class="accordion-header">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                            Livraison
+                        </button>
+                      </h2>
+                      <div id="collapseThree" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                        <div class="accordion-body">
+                            {{ product.delivery | raw }}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                
+                
+                
+            </div>
+
+
+
+            <div class="col-md-6 " id="product-details-secondary">
+            <div class="secondary-bloc-details-content">
+             {% include 'main/componenets/product-details-bloc.html.twig' %}
+            </div>
+           
+                
+            </div>
+
+        </div>
+
+
+        <div class="row mt-5">
+            <div class="col-12">
+                <div class="reviews-sections">
+                    <div class="text-center title-reviews-bloc">
+                        Avis des clients
+                    </div>
+                    <div class="row">
+                        <div class="col-12 col-sm-4">
+                            <i class="fa fa-star theme-color"></i>
+                            <i class="fa fa-star theme-color"></i>
+                            <i class="fa fa-star theme-color"></i>
+                            <i class="fa fa-star theme-color"></i>
+                            <i class="fa fa-star theme-color"></i>
+                            
+                            {% set fiveStarReviews = product.productReviews|filter(review => review.note == 5) %}
+                            {% set totalReviews = product.productReviews|length %}
+                            {% set averageNote = totalReviews > 0 ? (product.productReviews|map(r => r.note)|reduce((carry, n) => carry + n) / totalReviews)|number_format(2) : '0.00' %}
+                            <span class="rating-value">{{ averageNote }} sur 5</span>  
+                            Basé sur {{ totalReviews }} avis
+                        </div>
+                        <div class="col-12 col-sm-4">
+                            <div class="d-flex">
+                                <div class="stars">
+                                    <i class="fa fa-star theme-color"></i>
+                                    <i class="fa fa-star theme-color"></i>
+                                    <i class="fa fa-star theme-color"></i>
+                                    <i class="fa fa-star theme-color"></i>
+                                    <i class="fa fa-star theme-color"></i>
+                                    
+                                </div>
+                                <div class="progress-line" style="    width: 100px;
+                                margin-left: 15px;
+                                margin-right: 15px;">
+                                    <div class="progress" role="progressbar" aria-label="Basic example" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
+                                        <div class="progress-bar"  style="background-color: #5fd5b5; width: 100%;"></div>
+                                    </div>
+
+                                </div>
+                                <div class="counter">  
+                                    {% set fiveStarReviews = product.productReviews|filter(review => review.note == 5) %}
+                                    <span class="counter-value">{{ fiveStarReviews|length }}</span> avis
+
+                                </div> 
+                            </div>
+                            <!---->
+                            
+
+
+                            <div class="d-flex">
+                                <div class="stars">
+                                    <i class="fa fa-star theme-color"></i>
+                                    <i class="fa fa-star theme-color"></i>
+                                    <i class="fa fa-star theme-color"></i>
+                                    <i class="fa fa-star theme-color"></i>
+                                    <i class="fa fa-star-o theme-color"></i>
+                                    
+                                </div>
+                                <div class="progress-line" style="    width: 100px;
+                                margin-left: 15px;
+                                margin-right: 15px;">
+                                    <div class="progress" role="progressbar" aria-label="Basic example" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
+                                        <div class="progress-bar"  style="background-color: #5fd5b5; width: 80%;"></div>
+                                    </div>
+
+                                </div>
+                                <div class="counter">  
+                                    {% set foorStarReviews = product.productReviews|filter(review => review.note == 4) %}
+                                    <span class="counter-value">{{ foorStarReviews|length }}</span> avis
+
+                                </div> 
+                            </div>
+                            <!---->
+                            
+
+
+
+                            <div class="d-flex">
+                                <div class="stars">
+                                    <i class="fa fa-star theme-color"></i>
+                                    <i class="fa fa-star theme-color"></i>
+                                    <i class="fa fa-star theme-color"></i>
+                                    <i class="fa fa-star-o theme-color"></i>
+                                    <i class="fa fa-star-o theme-color"></i>
+                                    
+                                </div>
+                                <div class="progress-line" style="    width: 100px;
+                                margin-left: 15px;
+                                margin-right: 15px;">
+                                    <div class="progress" role="progressbar" aria-label="Basic example" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
+                                        <div class="progress-bar"  style="background-color: #5fd5b5; width: 60%;"></div>
+                                    </div>
+
+                                </div>
+                                <div class="counter">  
+                                    {% set threeStarReviews = product.productReviews|filter(review => review.note == 3) %}
+                                    <span class="counter-value">{{ threeStarReviews|length }}</span> avis
+
+                                </div> 
+                            </div>
+                            <!---->
+
+                            
+                            
+                            <div class="d-flex">
+                                <div class="stars">
+                                    <i class="fa fa-star theme-color"></i>
+                                    <i class="fa fa-star theme-color"></i>
+                                    <i class="fa fa-star-o theme-color"></i>
+                                    <i class="fa fa-star-o theme-color"></i>
+                                    <i class="fa fa-star-o theme-color"></i>
+                                    
+                                </div>
+                                <div class="progress-line" style="    width: 100px;
+                                margin-left: 15px;
+                                margin-right: 15px;">
+                                    <div class="progress" role="progressbar" aria-label="Basic example" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
+                                        <div class="progress-bar"  style="background-color: #5fd5b5; width: 40%;"></div>
+                                    </div>
+
+                                </div>
+                                <div class="counter">  
+                                    {% set twoStarReviews = product.productReviews|filter(review => review.note == 2) %}
+                                    <span class="counter-value">{{ twoStarReviews|length }}</span> avis
+
+                                </div> 
+                            </div>
+                            <!---->
+
+                            
+
+                            
+                            
+                            <div class="d-flex">
+                                <div class="stars">
+                                    <i class="fa fa-star theme-color"></i>
+                                    <i class="fa fa-star-o theme-color"></i>
+                                    <i class="fa fa-star-o theme-color"></i>
+                                    <i class="fa fa-star-o theme-color"></i>
+                                    <i class="fa fa-star-o theme-color"></i>
+                                    
+                                </div>
+                                <div class="progress-line" style="    width: 100px;
+                                margin-left: 15px;
+                                margin-right: 15px;">
+                                    <div class="progress" role="progressbar" aria-label="Basic example" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
+                                        <div class="progress-bar"  style="background-color: #5fd5b5; width: 40%;"></div>
+                                    </div>
+
+                                </div>
+                                <div class="counter">  
+                                    {% set oneStarReviews = product.productReviews|filter(review => review.note == 1) %}
+                                    <span class="counter-value">{{ oneStarReviews|length }}</span> avis
+
+                                </div> 
+                            </div>
+                            <!---->
+
+                            
+                            
+                            
+
+
+
+                        </div>
+                        
+                        <div class="col-12 col-sm-4">
+                            <button class="btn btn-theme rounded-pill w-100" type="button" data-bs-toggle="collapse" data-bs-target="#add-review-section" aria-expanded="false" aria-controls="add-review-section">
+                                Écrire un avis
+                            </button>
+                             
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="collapse" id="add-review-section">
+                            <div class="row justify-content-center">
+                                <div class="col-12 col-sm-8">
+                                    <div class="text-center title-reviews-bloc">
+                                        Écrire un avis
+                                    </div>
+                                    <form action="" class="text-center" method="post">
+                                        <!-- csrf -->
+                                         <input type="hidden" name="_csrf_token" value="{{ csrf_token('new_review') }}">
+
+                                        <div class="mb-3 d-flex justify-content-center">
+                                           <div>
+                                            <label for="">Note</label>
+                                            <select class="star-rating" required name="note">
+                                                <option value="">Select a rating</option>
+                                                <option value="5">Excellent</option>
+                                                <option value="4">Very Good</option>
+                                                <option value="3">Average</option>
+                                                <option value="2">Poor</option>
+                                                <option value="1">Terrible</option>
+                                            </select>
+                                           </div>
+                                        </div>
+        
+                                        <div class="mb-3 ">
+                                            
+                                             <label for="">Titre de l'avis</label>
+                                             <input type="text" name="title" class="form-control" placeholder="Donnez un titre à votre avis" required>
+                                            
+                                         </div>
+        
+        
+                                         <div class="mb-3 ">
+                                            
+                                            <label for="">Votre avis</label>
+                                            <input type="text" name="review" class="form-control" placeholder="Écrivez vos commentaires ici" required>
+                                           
+                                        </div>
+        
+                                        <div class="mb-3 ">
+                                            
+                                            <label for="">Nom (affiché publiquement comme)</label>
+                                            <input type="text" name="fullname" class="form-control" placeholder="Entrez votre nom (public)" required>
+                                           
+                                        </div>
+        
+        
+                                        <div class="mb-3 ">
+                                            
+                                            <label for="">Email</label>
+                                            <input type="text" name="email"  class="form-control" placeholder="Entrez votre email (privé)" required>
+                                           
+                                        </div>
+        
+                                        <div class="mb-3">
+                                            <button type="submit" class="btn btn-theme rounded-pill w-100">
+                                                Soumettre l'Avis
+                                            </button>
+                                        </div>
+        
+        
+                                         
+        
+        
+                                        
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="row mt-5">
+            {% for item in product.productReviews %}
+                <div class="col-12 col-sm-4 mb-3">
+                    <div class="card review-card">
+                        <div class="card-body">
+                            <div class="d-flex">
+                                <div> 
+                                    {% for i in 1..5 %}
+                                    {% if i <= item.note %}
+                                        <i class="fa fa-star theme-color filled-star"></i>
+                                    {% else %}
+                                        <i class="fa fa-star--o theme-color empty-star"></i>
+                                    {% endif %}
+                                {% endfor %}
+                                </div>
+                            </div>
+                            <div class="d-flex">
+                                <div class="avatar-bloc">
+                                    <i class="fa fa-user-o" aria-hidden="true"></i>
+                                </div>
+                                <div class="name">
+                                    <div class="review-fullanme">
+                                        <span>{{ item.fullname }}</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="content">
+                                <div>
+                                    <strong>{{ item.title }}</strong>
+                                </div>
+                                <div>
+                                    <p class="text-muted">
+                                        {{ item.review }}
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>     
+                </div>
+            {% endfor %}
+        </div> 
+
+    </div>
+
+
+
+    <div class="container-fluid mt-5 feature-products-section">
+        <div class="row">
+            <div class="col-12 col-sm-4  mb-3">
+                <div class="product-feature">
+                    <div class="icon">
+                        <i class="fa fa-truck" aria-hidden="true"></i>
+                    </div>
+                    <div class="title">
+                        Livraison rapide
+                    </div>
+                    <div class="content">
+                        Partout dans le monde, à domicile ou en point relais.
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-12 col-sm-4  mb-3">
+                <div class="product-feature">
+                    <div class="icon">
+                        <i class="fa fa-lock" aria-hidden="true"></i>
+                    </div>
+                    <div class="title">
+                        Paiement sécurisé
+                    </div>
+                    <div class="content">
+                        Par CB ou en 3 fois 
+                    </div>
+                </div>
+            </div>
+            
+
+            <div class="col-12 col-sm-4  mb-3">
+                <div class="product-feature">
+                    <div class="icon">
+                        <i class="fa fa-envelope" aria-hidden="true"></i>
+                    </div>
+                    <div class="title">
+                        Service client
+                    </div>
+                    <div class="content">
+                        Disponible du lundi au vendredi de 8h à 16h pour toute question sur nos produits ou le suivi de votre commande.
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+
+
+
+
+
+ 
+
+
+    {% include 'main/componenets/news-letter.html.twig' %}
+
+     
+
+
+    <script>
+
+document.addEventListener("scroll", () => {
+  const productDetailsMain = document.getElementById("product-details-main");
+  const productDetailsSecondary = document.getElementById("product-details-secondary");
+
+  const bounding = productDetailsMain.getBoundingClientRect();
+
+  // Check if the element is out of view
+  if (bounding.bottom < 0) {
+    productDetailsSecondary.classList.add("visible");
+  } else {
+    productDetailsSecondary.classList.remove("visible");
+  }
+});
+
+    </script>
+
+{% endblock %}

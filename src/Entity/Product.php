@@ -57,12 +57,41 @@ class Product
      */
     #[ORM\OneToMany(targetEntity: Ingredient::class, mappedBy: 'product')]
     private Collection $ingredient;
+
+    #[ORM\ManyToOne(inversedBy: 'products')]
+    private ?SubCategory $subCategory = null;
+
+    /**
+     * @var Collection<int, ProductsPack>
+     */
+    #[ORM\ManyToMany(targetEntity: ProductsPack::class, mappedBy: 'products')]
+    private Collection $productsPacks;
+
+    /**
+     * @var Collection<int, ProductReview>
+     */
+    #[ORM\OneToMany(targetEntity: ProductReview::class, mappedBy: 'product')]
+    private Collection $productReviews;
+
+    #[ORM\ManyToOne(inversedBy: 'products')]
+    private ?Perfum $perfum = null;
+
+    /**
+     * @var Collection<int, CheckoutRelatedProduct>
+     */
+    #[ORM\OneToMany(targetEntity: CheckoutRelatedProduct::class, mappedBy: 'product')]
+    private Collection $checkoutRelatedProducts;
+
+
  
 
     public function __construct()
     {
         $this->images = new ArrayCollection();
         $this->ingredient = new ArrayCollection();
+        $this->productsPacks = new ArrayCollection();
+        $this->productReviews = new ArrayCollection();
+        $this->checkoutRelatedProducts = new ArrayCollection();
     }
 
     
@@ -259,6 +288,119 @@ class Product
 
         return $this;
     }
+
+    public function getSubCategory(): ?SubCategory
+    {
+        return $this->subCategory;
+    }
+
+    public function setSubCategory(?SubCategory $subCategory): static
+    {
+        $this->subCategory = $subCategory;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, ProductsPack>
+     */
+    public function getProductsPacks(): Collection
+    {
+        return $this->productsPacks;
+    }
+
+    public function addProductsPack(ProductsPack $productsPack): static
+    {
+        if (!$this->productsPacks->contains($productsPack)) {
+            $this->productsPacks->add($productsPack);
+            $productsPack->addProduct($this);
+        }
+
+        return $this;
+    }
+
+    public function removeProductsPack(ProductsPack $productsPack): static
+    {
+        if ($this->productsPacks->removeElement($productsPack)) {
+            $productsPack->removeProduct($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, ProductReview>
+     */
+    public function getProductReviews(): Collection
+    {
+        return $this->productReviews;
+    }
+
+    public function addProductReview(ProductReview $productReview): static
+    {
+        if (!$this->productReviews->contains($productReview)) {
+            $this->productReviews->add($productReview);
+            $productReview->setProduct($this);
+        }
+
+        return $this;
+    }
+
+    public function removeProductReview(ProductReview $productReview): static
+    {
+        if ($this->productReviews->removeElement($productReview)) {
+            // set the owning side to null (unless already changed)
+            if ($productReview->getProduct() === $this) {
+                $productReview->setProduct(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getPerfum(): ?Perfum
+    {
+        return $this->perfum;
+    }
+
+    public function setPerfum(?Perfum $perfum): static
+    {
+        $this->perfum = $perfum;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, CheckoutRelatedProduct>
+     */
+    public function getCheckoutRelatedProducts(): Collection
+    {
+        return $this->checkoutRelatedProducts;
+    }
+
+    public function addCheckoutRelatedProduct(CheckoutRelatedProduct $checkoutRelatedProduct): static
+    {
+        if (!$this->checkoutRelatedProducts->contains($checkoutRelatedProduct)) {
+            $this->checkoutRelatedProducts->add($checkoutRelatedProduct);
+            $checkoutRelatedProduct->setProduct($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCheckoutRelatedProduct(CheckoutRelatedProduct $checkoutRelatedProduct): static
+    {
+        if ($this->checkoutRelatedProducts->removeElement($checkoutRelatedProduct)) {
+            // set the owning side to null (unless already changed)
+            if ($checkoutRelatedProduct->getProduct() === $this) {
+                $checkoutRelatedProduct->setProduct(null);
+            }
+        }
+
+        return $this;
+    }
+
+ 
 
 
  

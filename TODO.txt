@@ -1,0 +1,5 @@
+- product add to cart
+- checkout
+- responsive site menu
+- news letter action form
+- packs details

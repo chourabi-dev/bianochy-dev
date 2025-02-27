@@ -1,0 +1,67 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{% endblock %}
+
+
+
+
+
+{% block body %}
+
+    <div class="container">
+        <div class="page-title text-center">
+            Nos packs
+        </div>
+    
+    
+        <div class="row">
+            {% for item in packs %}
+                <div class="col-6 col-sm-3">
+                    <!-- card product-->
+                     <a href="{{ path('product_pack_details_route',{id:item.id}) }}">
+                        <div class="product-card">
+                            <div class="images-show" style=" background-position: center;background-size: cover; background-image: url(/uploads/packs/{{ item.photo }}); "> 
+                                     
+                            </div>
+                            <div class="content">
+                               <div class="starts-review-bloc d-flex">
+                                    <!--<div class="stars-reviews">★★★★★</div> 
+                                    <div class="text">
+                                        22 avis
+                                    </div>-->
+                                    
+                               </div>
+
+                                {% set price = item.price %}
+                                {% if promo != null %}
+                                    {% set price =  price - ( price * promo.value / 100 )  %}
+                                {% endif %}
+
+                                {% if promo != null %}
+                                    <p class="text-danger old-price" style="text-decoration: line-through;">
+                                        {{ item.price | format_currency('TND', {fraction_digit: 2}) }}
+                                    </p>
+                                {% endif %}
+
+                               <div class="product-card-price">
+                                    <span class="price">{{ price | format_currency('TND', {fraction_digit: 2}) }}</span>
+                                </div>
+                                <div class="product-label">
+                                    <span class="label">{{ item.title }}</span>
+                                </div>
+    
+                            </div>
+                        </div>
+                     </a>
+                    
+                </div>
+            {% endfor %}
+        </div>
+
+
+        
+
+    </div>
+  
+
+{% endblock %}

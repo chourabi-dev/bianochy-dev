@@ -1,0 +1,55 @@
+
+                    
+                    <div class="product-details-label">
+                        {{ pack.title }}
+                    </div> 
+                    <!--<div class="product-details-rating">
+                        <div class="d-flex">
+                            <div class="d-flex">
+                                <i class="rating-star fa fa-star"></i>
+                                <i class="rating-star fa fa-star"></i>
+                                <i class="rating-star fa fa-star"></i>
+                                <i class="rating-star fa fa-star"></i>
+                                <i class="rating-star fa fa-star"></i>
+                                
+                            </div>
+                            <div class="rating-count">
+                                22 avis
+                            </div>
+                        </div>
+                    </div>-->
+    
+                     
+    
+    
+                    <div class="product-details-price">
+                        <div class="price-box">
+
+
+                        {% set price = pack.price %}
+                                {% if promo != null %}
+                                    {% set price =  price - ( price * promo.value / 100 )  %}
+                                {% endif %}
+
+                                {% if promo != null %}
+                                    <p class="text-danger old-price" style="text-decoration: line-through;">
+                                        {{ pack.price | format_currency('TND', {fraction_digit: 2}) }}
+                                    </p>
+                                {% endif %}
+                                
+                            <span class="price">
+                                {{ price | format_currency('TND', {fraction_digit: 2}) }}
+                            </span>
+    
+                            <!-- check for latest promo-->
+                             
+                            
+                        </div>
+                    </div>
+
+                    <a pack-id="{{ pack.id }}" style="cursor: pointer;" class="add-pack-cart product-action-button">
+                        AJOUTER AU PANIER
+                    </a>
+    
+                     
+     

@@ -1,0 +1,127 @@
+{% extends '@EasyAdmin/layout.html.twig' %}
+
+{% block main %}
+    <h3>{{ "commandes" | trans }}</h3>
+
+ 
+
+    <div class="container">
+        <table class="table datatable">
+            <thead>
+              <tr>
+                <th>N° : </th>
+                <th>Contact</th> 
+                <th>Date de commande</th>
+                <th>Products</th>
+                <th>Packs</th>
+                <th>Actions</th>
+                <th>BDC</th>
+                
+              </tr>
+            </thead>
+            <tbody>
+             {% for data in commandes %}
+                 <tr>
+                <td>{{ data.id }}</td>
+                <td>
+                <p>
+                    <strong>
+                        {{ data.firstname ~ " " ~ data.lastname}} 
+                    </strong>
+                </p>
+                <p class="text-muted mb-0">
+                    {{ data.email }}
+                </p>
+                <p class="text-muted mb-0">
+                    {{ data.phone }}
+                </p>
+                <p class="text-muted mb-0">
+                    {{ data.address }}
+                </p> 
+                </td> 
+
+                <td>{{ data.createdAt|date('Y-m-d H:i:s') }}</td>
+                <td>
+                  <ul>
+                    {% for product in data.checkoutRelatedProducts %}
+                      <li>{{ product.product.label }}</li>
+                    {% else %}
+                      <li>No related products</li>
+                    {% endfor %}
+                  </ul>
+                </td>
+                <td>
+                  <ul>
+                    {% for productPack in data.checkoutRelatedProductPacks %}
+                      <li>{{ productPack.pack.title }}</li>
+                    {% else %}
+                      <li>No related product packs</li>
+                    {% endfor %}
+                  </ul>
+                </td>
+                <td>
+                    <form action="" method="post"> 
+                        <select name="action" id="action" request-id="{{ data.id }}" class="form-control action">
+                            <option value="" >-- --</option>
+                            {% for item in payments_status %}
+                                <option value="{{item.id}}" 
+                                {% if data.paymentStatus != null %}
+                                    {% if data.paymentStatus.id == item.id %}
+                                        selected
+                                    {% endif %}
+                                {% endif %}
+                                 >{{item.label}}</option>
+                            {% endfor %}
+                            
+                        </select>
+                    </form>
+                </td>
+                <td>
+                    <a href="{{ path('check_bon_commandes',{id:data.id}) }}" class="btn btn-secondary btn-sm">
+                      <i class="fa fa-file-text-o" aria-hidden="true"></i>
+                    </a>
+                </td>
+              </tr>
+             {% endfor %}
+            </tbody>
+          </table>
+          
+    </div>
+
+
+
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.min.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            $('table').DataTable();
+
+
+            $(".action").on('change',function(e){
+                var id = $(this).attr("request-id");
+                
+
+                if (id != "") {
+                    // send ajax post body with state and id
+                    $.ajax({
+                        type: "POST",
+                        url: "{{ path('update_order_route') }}",
+                        data: {
+                            "id": id,
+                            "state": $(this).val()
+                            },
+                            success: function(data) {
+                                console.log(data);
+                            }
+                        });
+                }
+            })
+
+
+        });
+    </script>
+
+
+{% endblock main %}

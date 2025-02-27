@@ -1,5 +1,66 @@
 {% extends '@EasyAdmin/layout.html.twig' %}
 
 {% block main %}
-    hello world
+
+
+<div class="container">
+    <div class="row">
+        <div class="col-xl col-md-6 col-12">
+            <div class="card bg-danger">
+                <div class="card-body">
+                    <div class="align-items-center row">
+                        <div class="col">
+                            <h6 class="text-uppercase text-white mb-2">Nouvelles commandes</h6><span
+                                class="h2 mb-0 text-white">{{ commandes | filter( (c)=>c.paymentStatus == null ) | length }}</span>
+                                <span   class="mt-n1 ms-2 badge text-bg-success-subtle text-white">commandes</span>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fa fa-bell text-white" style="font-size: 45px;"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="col-xl col-md-6 col-12">
+            <div class="card bg-success">
+                <div class="card-body">
+                    <div class="align-items-center row">
+                        <div class="col">
+                            <h6 class="text-uppercase text-white mb-2">Commande clôturée</h6><span
+                                class="h2 mb-0 text-white">{{ commandesTreated | filter( (c)=>c.paymentStatus.id == 11 ) | length }}</span>
+                                <span   class="mt-n1 ms-2 badge text-white">commandes</span>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fa fa-check text-white" style="font-size: 45px;"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="col-xl col-md-6 col-12">
+            <div class="card bg-warning">
+                <div class="card-body">
+                    <div class="align-items-center row">
+                        <div class="col">
+                            <h6 class="text-uppercase  mb-2 text-white">Commandes en cours</h6><span
+                                class="h2 mb-0 text-white"">{{ commandesTreated | filter( (c)=>c.paymentStatus.id != null and c.paymentStatus.id != 11 ) | length }}</span>
+                                <span   class="mt-n1 ms-2 badge text-bg-success-subtle text-white"">commandes</span>
+                        </div>
+                        <div class="col-auto">
+                            <i class="bi bi-currency-dollar"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+      
+    </div>
+</div>
 {% endblock main %}

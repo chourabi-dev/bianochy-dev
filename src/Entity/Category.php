@@ -27,9 +27,30 @@ class Category
     #[ORM\OneToMany(targetEntity: Product::class, mappedBy: 'category')]
     private Collection $products;
 
+    /**
+     * @var Collection<int, SubCategory>
+     */
+    #[ORM\OneToMany(targetEntity: SubCategory::class, mappedBy: 'category')]
+    private Collection $subCategories;
+
+    /**
+     * @var Collection<int, Promotion>
+     */
+    #[ORM\ManyToMany(targetEntity: Promotion::class, mappedBy: 'categories')]
+    private Collection $promotions;
+
+    /**
+     * @var Collection<int, Menu>
+     */
+    #[ORM\OneToMany(targetEntity: Menu::class, mappedBy: 'category')]
+    private Collection $menus;
+
     public function __construct()
     {
         $this->products = new ArrayCollection();
+        $this->subCategories = new ArrayCollection();
+        $this->promotions = new ArrayCollection();
+        $this->menus = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -94,5 +115,92 @@ class Category
     function __toString()
     {
         return $this->label;
+    }
+
+    /**
+     * @return Collection<int, SubCategory>
+     */
+    public function getSubCategories(): Collection
+    {
+        return $this->subCategories;
+    }
+
+    public function addSubCategory(SubCategory $subCategory): static
+    {
+        if (!$this->subCategories->contains($subCategory)) {
+            $this->subCategories->add($subCategory);
+            $subCategory->setCategory($this);
+        }
+
+        return $this;
+    }
+
+    public function removeSubCategory(SubCategory $subCategory): static
+    {
+        if ($this->subCategories->removeElement($subCategory)) {
+            // set the owning side to null (unless already changed)
+            if ($subCategory->getCategory() === $this) {
+                $subCategory->setCategory(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Promotion>
+     */
+    public function getPromotions(): Collection
+    {
+        return $this->promotions;
+    }
+
+    public function addPromotion(Promotion $promotion): static
+    {
+        if (!$this->promotions->contains($promotion)) {
+            $this->promotions->add($promotion);
+            $promotion->addCategory($this);
+        }
+
+        return $this;
+    }
+
+    public function removePromotion(Promotion $promotion): static
+    {
+        if ($this->promotions->removeElement($promotion)) {
+            $promotion->removeCategory($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Menu>
+     */
+    public function getMenus(): Collection
+    {
+        return $this->menus;
+    }
+
+    public function addMenu(Menu $menu): static
+    {
+        if (!$this->menus->contains($menu)) {
+            $this->menus->add($menu);
+            $menu->setCategory($this);
+        }
+
+        return $this;
+    }
+
+    public function removeMenu(Menu $menu): static
+    {
+        if ($this->menus->removeElement($menu)) {
+            // set the owning side to null (unless already changed)
+            if ($menu->getCategory() === $this) {
+                $menu->setCategory(null);
+            }
+        }
+
+        return $this;
     }
 }

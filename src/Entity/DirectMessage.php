@@ -14,11 +14,7 @@ class DirectMessage
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 1000)]
-    private ?string $title = null;
-
-    #[ORM\Column(length: 1000)]
-    private ?string $object = null;
+ 
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     private ?\DateTimeInterface $createdAt = null;
@@ -29,34 +25,14 @@ class DirectMessage
     #[ORM\Column(length: 1000)]
     private ?string $fullname = null;
 
+    #[ORM\Column(length: 255)]
+    private ?string $email = null;
+
     public function getId(): ?int
     {
         return $this->id;
     }
-
-    public function getTitle(): ?string
-    {
-        return $this->title;
-    }
-
-    public function setTitle(string $title): static
-    {
-        $this->title = $title;
-
-        return $this;
-    }
-
-    public function getObject(): ?string
-    {
-        return $this->object;
-    }
-
-    public function setObject(string $object): static
-    {
-        $this->object = $object;
-
-        return $this;
-    }
+ 
 
     public function getCreatedAt(): ?\DateTimeInterface
     {
@@ -90,6 +66,18 @@ class DirectMessage
     public function setFullname(string $fullname): static
     {
         $this->fullname = $fullname;
+
+        return $this;
+    }
+
+    public function getEmail(): ?string
+    {
+        return $this->email;
+    }
+
+    public function setEmail(string $email): static
+    {
+        $this->email = $email;
 
         return $this;
     }

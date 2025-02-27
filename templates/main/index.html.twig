@@ -1,0 +1,312 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{% endblock %}
+
+
+
+
+
+{% block body %}
+
+    
+    <!-- end navbar-->
+
+    <!--<header data-aos="fade-up">
+        <section id="hero">
+            <img src="/images/last-banner.jpeg" width="100%" alt="">
+        </section>
+    </header>-->
+
+    <header>
+        <section class="owl-carousel owl-theme" id="hero">
+            {% for item in banners %}
+                <div class="slider-banner d-sm-flex" style="background-image: url(/uploads/banners/{{item.photo}});">
+                    <div class="container">
+                        <div class="title">
+                            {% if item.title != null %}
+                                <h1 class="text-white">{{item.title}}</h1>
+                            {% endif %}
+                            {% if item.content != null %} 
+                                <div class="text-white">{{item.content | raw}}</div> 
+                            {% endif %} 
+
+                            {% if item.link != null %}
+                                <div><a href="{{item.link}}" target="_blank">visiter</a></div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </section>
+    </header>
+
+
+    
+
+
+
+    <section style="margin-top: 44px;" >
+        <div class="container">
+            <h3 class="text-center amazing-title">Nos nouveautés</h3>
+            <div class="row">
+                
+                {% for item in latests %}
+                <div class="col-6 col-sm-3" data-aos="fade-up" data-aos-duration="{{ (loop.index * 100) + 100 }}">
+                    <!-- card product-->
+                     {% include 'main/componenets/product-card-details.html.twig' %}
+                </div>
+                 
+            {% endfor %}
+            </div>
+        </div>
+    </section>
+
+
+
+
+
+    {% set sortedProducts = products|sort((a, b) => b.checkoutRelatedProducts|length <=> a.checkoutRelatedProducts|length) %}
+ 
+    <section style="margin-top: 44px;" data-aos="fade-up">
+        <div class="container">
+            <h3 class="text-center amazing-title">Nos meilleures ventes</h3>
+            <div class="row">
+             
+                {% for item in sortedProducts|slice(0, 3)  %}
+                <div class="col-6 col-sm-3" data-aos="fade-up" data-aos-duration="{{ (loop.index * 100) + 100 }}">
+                     {% include 'main/componenets/product-card-details.html.twig' %}
+                    
+                </div> 
+             {% endfor %}
+            </div>
+        </div>
+    </section>
+
+
+
+
+
+    <section style="margin-top: 44px;" data-aos="fade-up">
+        <div class="container">
+            <h3 class="text-center">
+                EXPLOREZ TOUTES LES NOTES OLFACTIVES
+            </h3>
+
+            <div class="owl-carousel owl-theme owl-loaded owl-drag" id="perfum-slider">
+                {% for item in perfums %}
+                <a href="{{ path('collections_perfum_route',{id: item.id }) }}">
+                    <div class="note-olfactives " >
+                        <div class="image-bloc" style="background-image: url(/uploads/icons/{{ item.photo }});"></div>
+                        <div class="label">
+                            {{ item.label }}
+                        </div>
+                    </div>
+                </a>
+                    
+                {% endfor %}
+            </div>
+            
+            
+        </div>
+    </section>
+
+
+
+    <section style="margin-top: 44px;" >
+        <div class="container">
+            <div class="custom-bloc d-sm-flex">
+                <div class="bloc-img-1">
+                    <img src="/images/last-history.jpeg" class="rounded w-100" alt="">
+                </div>
+                <div class="bloc-text-1">
+                    <div class="card card-body">
+                        <div class="title-1">
+                            Notre histoire
+                        </div>
+                        <p class="text-1">
+                            Née d’une envie de voyage olfactif, la maison SENTALIA propose des parfums et de soins parfumants naturels voluptueux et sensuels qui revisitent les codes. Elle offre une expérience sensorielle unique. Avec ses extraits dénichés des 4 coins du globe vous allez découvrir le monde du maître parfumeur Sentalia. Il a un attrait particulier au notes méditerranéenes avec un certain caractère. Raffinement, sensualité et caractère tels sont les valeurs de notre maison.
+                        </p>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+
+    </section>
+
+
+ 
+
+
+    <section style="margin-top: 44px;"  >
+        <img src="/images/top-bloc.PNG" width="100%" alt="">
+        <div style="background-color: #ae948c; padding-bottom: 50px;">
+            <div class="container">
+                <div class="row">
+                    <div class="col-6 col-sm-3">
+                        <div class="feature-bloc">
+                            <div class="icon">
+                                <i class="fa fa-truck" aria-hidden="true"></i>
+                            </div>
+                            <div class="title">Livraison rapide</div>
+                            <div class="content">Partout dans le monde, à domicile ou en point relais.</div>
+                        </div>
+                    </div>
+                    
+
+                    <div class="col-6 col-sm-3">
+                        <div class="feature-bloc">
+                            <div class="icon">
+                                <i class="fa fa-lock" aria-hidden="true"></i>
+                            </div>
+                            <div class="title">Paiement sécurisé</div>
+                            <div class="content">Par CB ou en 3 fois sans frais avec Scalapay</div>
+                        </div>
+                    </div>
+
+
+                    <div class="col-6 col-sm-3">
+                        <div class="feature-bloc">
+                            <div class="icon">
+                                <i class="fa fa-envelope-o" aria-hidden="true"></i>
+                            </div>
+                            <div class="title">Service client</div>
+                            <div class="content">Disponible du lundi au vendredi de 8h à 16h pour toute question sur nos produits ou pour le suivi de votre commande.</div>
+                        </div>
+                    </div>
+
+                    <div class="col-6 col-sm-3">
+                        <div class="feature-bloc">
+                            <div class="icon">
+                                <i class="fa fa-leaf" aria-hidden="true"></i>
+                            </div>
+                            <div class="title">Parfum de Grasse</div>
+                            <div class="content">
+                                Les fragrances sont soigneusement sélectionnées par des parfumeurs de Grasse, capitale mondiale du parfum.</div>
+                        </div>
+                    </div>
+
+                    
+                    
+                </div>
+    
+            </div>
+        </div>
+    </section>
+
+
+   
+
+
+    <section style="margin-top: 44px;" >
+        <div class="container">
+            <h3>Les avis de nos clients</h3>
+
+            <div class="row mt-5">
+                <div class="col-12 col-md-4 mb-4">
+                    <div class="testimonial">
+                        <div class="quote"></div>
+                        <p class="content">Working with this team has been an absolute game-changer for our business. </p>
+                        <div class="author">
+                            <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&amp;auto=format&amp;fit=crop&amp;w=256&amp;q=80" alt="Sarah Johnson">
+                            <div class="author-info">
+                                <h4>Sarah Johnson</h4>
+                                <p>Marketing Director</p>
+                            </div>
+                        </div>
+                        <div class="stars"></div>
+                    </div>
+                </div>
+                
+
+                <div class="col-12 col-md-4 mb-4">
+                    <div class="testimonial">
+                        <div class="quote"></div>
+                        <p class="content">Working with this team has been an absolute game-changer for our business. </p>
+                        <div class="author">
+                            <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&amp;auto=format&amp;fit=crop&amp;w=256&amp;q=80" alt="Sarah Johnson">
+                            <div class="author-info">
+                                <h4>Sarah Johnson</h4>
+                                <p>Marketing Director</p>
+                            </div>
+                        </div>
+                        <div class="stars"></div>
+                    </div>
+                </div>
+                
+
+                <div class="col-12 col-md-4 mb-4">
+                    <div class="testimonial">
+                        <div class="quote"></div>
+                        <p class="content">Working with this team has been an absolute game-changer for our business. </p>
+                        <div class="author">
+                            <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&amp;auto=format&amp;fit=crop&amp;w=256&amp;q=80" alt="Sarah Johnson">
+                            <div class="author-info">
+                                <h4>Sarah Johnson</h4>
+                                <p>Marketing Director</p>
+                            </div>
+                        </div>
+                        <div class="stars"></div>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+    </section>
+
+
+
+    <section class="mt-5 mb-5"  >
+       <div class="container">
+        <div class="row">
+            
+                 {% for item in images %}
+                 <div class="col-12 col-sm-3 mb-2">
+                    
+
+                    <a href="/uploads/gallery/{{ item.path }}" data-lightbox="image-{{loop.index}}" data-title="">
+                        <img src="/uploads/gallery/{{ item.path }}" class="rounded w-100" alt="">
+                    </a>
+                </div>
+                 {% endfor %}
+           
+        </div>
+       </div>
+    </section>
+ 
+
+    {% include 'main/componenets/news-letter.html.twig' %}
+
+     
+   
+
+
+{% endblock %}
+
+
+{% block javascripts %}
+{{ parent() }}
+
+<script>
+    $(document).ready(function(){
+    
+    $("#perfum-slider").owlCarousel({
+        loop:true,
+    margin:10,
+    nav:true,
+      responsive:{
+          0:{
+                items:2
+            },
+            600:{
+                items:2
+            },
+            1000:{
+                items: 4
+            }
+        }
+    })
+
+    })
+</script>
+{% endblock %}

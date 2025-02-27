@@ -1,0 +1,198 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    {{ pack.title }}
+{% endblock %}
+
+
+
+
+
+{% block body %}
+
+    <!-- breadcrumb -->
+    <div class="container mt-5">
+        <div class="breadcrumb-bloc">
+            <ol class="breadcrumb custom-breadcrumb">
+                <li>
+                    <a href="#">
+                        <i class="fa fa-home" aria-hidden="true"></i>
+                    </a>
+                </li>
+                
+                    <li>
+                        <a href="{{ path('packs_route') }}">Nos packs</a>
+                    </li>
+                  
+                
+                <li>
+                    <a href="#">{{ pack.title }}</a>
+                </li>
+                
+            </ol>
+        </div>
+    </div>
+
+
+
+    <div class="container mt-4">
+        <div class="row mb-5">
+            <div class="col-md-6" >
+                <div class="product-images ">
+                    <!--loop throw images-->
+                    
+                        <div>
+                            <img src="/uploads/packs/{{ pack.photo }}" class="rounded w-100" alt="product image">
+                        </div>
+                    
+                </div>
+            </div>
+            <div class="col-md-6" id="product-details-main">
+                {% include 'main/componenets/pack-details-bloc.html.twig' %}
+                
+
+
+                
+            </div>
+        </div>
+
+
+        <div class="row">
+            <div class="col-12 col-sm-12 col-md-6">
+                <h1 class="theme-text-color">Description</h1>
+                <div style="font-family: Unna, serif;">
+                    {{ pack.descreption | raw }}
+                </div>
+                
+                 
+                <div class="accordion mt-5" id="accordionExample">
+                    <div class="accordion-item custom_accordion-item">
+                      <h2 class="accordion-header">
+                        <button class="accordion-button collapsed " type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+                            Produits du pack
+                        </button>
+                      </h2>
+                      <div id="collapseOne" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                        <div class="accordion-body ">
+                          
+                           <div class="row">
+                            {% for item in pack.products %}
+                                <div class="col-6">
+                                    <div class="card" class="w-100">
+                                        <img src="/uploads/products/{{ item.images[0] }}" class="card-img-top" />
+                                        <div class="card-body">
+                                            <h5 class="card-title">{{ item.label }}</h5>
+                                            <p>
+                                                <a href="{{ path('product_details_route',{id:item.id}) }}"></a>
+                                            </p> 
+                                        </div>
+
+                                    </div> 
+                                </div>
+                            
+                            {% endfor %}
+                           </div>
+
+                        </div>
+                      </div>
+                    </div> 
+                     
+                  </div> 
+                
+            </div>
+
+
+
+            <div class="col-md-6 " id="product-details-secondary">
+            <div class="secondary-bloc-details-content">
+             {% include 'main/componenets/pack-details-bloc.html.twig' %}
+            </div>
+           
+                
+            </div>
+
+        </div>
+
+
+     
+ 
+
+    </div>
+
+
+
+    <div class="container-fluid mt-5 feature-products-section">
+        <div class="row">
+            <div class="col-12 col-sm-4  mb-3">
+                <div class="product-feature">
+                    <div class="icon">
+                        <i class="fa fa-truck" aria-hidden="true"></i>
+                    </div>
+                    <div class="title">
+                        Livraison rapide
+                    </div>
+                    <div class="content">
+                        Partout dans le monde, à domicile ou en point relais.
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-12 col-sm-4  mb-3">
+                <div class="product-feature">
+                    <div class="icon">
+                        <i class="fa fa-lock" aria-hidden="true"></i>
+                    </div>
+                    <div class="title">
+                        Paiement sécurisé
+                    </div>
+                    <div class="content">
+                        Par CB ou en 3 fois 
+                    </div>
+                </div>
+            </div>
+            
+
+            <div class="col-12 col-sm-4  mb-3">
+                <div class="product-feature">
+                    <div class="icon">
+                        <i class="fa fa-envelope" aria-hidden="true"></i>
+                    </div>
+                    <div class="title">
+                        Service client
+                    </div>
+                    <div class="content">
+                        Disponible du lundi au vendredi de 8h à 16h pour toute question sur nos produits ou le suivi de votre commande.
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+
+
+
+
+    {% include 'main/componenets/news-letter.html.twig' %}
+
+     
+
+
+    <script>
+
+document.addEventListener("scroll", () => {
+  const productDetailsMain = document.getElementById("product-details-main");
+  const productDetailsSecondary = document.getElementById("product-details-secondary");
+
+  const bounding = productDetailsMain.getBoundingClientRect();
+
+  // Check if the element is out of view
+  if (bounding.bottom < 0) {
+    productDetailsSecondary.classList.add("visible");
+  } else {
+    productDetailsSecondary.classList.remove("visible");
+  }
+});
+
+    </script>
+
+{% endblock %}

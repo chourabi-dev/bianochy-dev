@@ -5,11 +5,13 @@
 {% block content %}
 <div> 
     <div class="row mt-2 mb-1">
-        {% for item in _context.entity.instance.images %}
-        <div class="col-12 mb-2 col-sm-6 col-md-4">
-                <img src="/uploads/products/{{item.path}}" class="w-100 rounded" alt="">
-            </div>
-        {% endfor %}
+        {% if _context.entity.instance != null %}
+            {% for item in _context.entity.instance.images %}
+            <div class="col-12 mb-2 col-sm-6 col-md-4">
+                    <img src="/uploads/products/{{item.path}}" class="w-100 rounded" alt="">
+                </div>
+            {% endfor %}
+        {% endif %}
     </div>
 
     {{ parent() }}

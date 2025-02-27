@@ -21,14 +21,13 @@ class CategoryCrudController extends AbstractCrudController
     public function configureFields(string $pageName): iterable
     {
         return [
-            IdField::new('id')->hideOnForm()->setLabel('N°'),
-            
+            IdField::new('id')->hideOnForm()->setLabel('N°'), 
             TextField::new('label')->setColumns(6)->setLabel('Titre'),
             ImageField::new('icon')
                 ->setColumns(6)
                 ->setBasePath('/uploads/icons') // Folder where the images will be stored
                 ->setUploadDir('public/uploads/icons') // Directory for uploaded images
-                ->setRequired(false) // Make this field optional
+                ->setRequired(true) // Make this field optional
                 ->setUploadedFileNamePattern('[randomhash].[extension]') // Unique filename pattern
                 ->setLabel('Icon') // Custom label for the field
         ];

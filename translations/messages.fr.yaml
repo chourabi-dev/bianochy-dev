@@ -1,0 +1,37 @@
+menu:
+    options: 'Paramètres'
+    dashboard: 'Tableau de bord'
+    products: 'Produits'
+    configuration: 'Configuration'
+    categories: 'Catégories'
+    sub_categories : 'Sous-categories'
+    ingredients: 'Ingrédients'
+    inbox: 'Boîte de réception'
+    products_pack: 'Packs des produits'
+    perfum: 'Notes olfactives'
+    requests : Commandes
+    payment_status : Statut des paiements
+    gallery: Gallery
+    promotions : Promotion
+    banner: Bannière publicitaire
+product:
+    perfum: 'Note olfactive'
+    title: 'Titre'
+    description: 'Description'
+    price: 'Prix'
+    sub_title: 'Sous-titre'
+    category : 'Catégorie'
+    in_stock : 'En stock'
+    images : 'Photos'
+    ingredients : 'Ingredients'
+    how_to_use : "Nos conseils d'application"
+    delivery : 'Livraison'
+    caracteristiques : 'Caracteristiques'
+    createdAt: "Date d'ajout"
+    sub_category : Sous categorie
+    products_list : 'Liste des produits'
+    
+ingredient:
+    title: 'Titre'
+
+commandes: Commandes

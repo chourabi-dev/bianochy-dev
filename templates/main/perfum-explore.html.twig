@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{% endblock %}
+
+
+
+
+
+{% block body %}
+
+    <div class="container">
+        <div class="page-title text-center">
+            {{ perfum.label }}
+        </div>
+    
+    
+        <div class="row">
+            {% for item in perfum.products %}
+                <div class="col-6 col-sm-3">
+                    <!-- card product-->
+                      {% include 'main/componenets/product-card-details.html.twig' %}
+                    
+                </div>
+            {% endfor %}
+        </div>
+
+
+    
+
+    </div>
+  
+
+{% endblock %}

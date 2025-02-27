@@ -21,7 +21,7 @@ class IngredientCrudController extends AbstractCrudController
     {
         return [
             IdField::new('id')->hideOnForm()->setLabel('N°'), 
-            TextField::new('label')->setLabel("Titre")->setColumns(12),
+            TextField::new('label')->setColumns(12)->setLabel("ingredient.title"),
             
         ];
     }

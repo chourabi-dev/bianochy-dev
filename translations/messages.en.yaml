@@ -1,0 +1,9 @@
+menu:
+    dashboard: 'Dashboard'
+    products: 'Products'
+    configuration: 'Configuration'
+    categories: 'Categories'
+    ingredients: 'Ingredients'
+    inbox: 'Inbox'
+product:
+    title: 'Title'
